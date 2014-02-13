@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Textcomplete</title>
+    <style>
+      textarea {
+        font-size: 14px;
+        line-height: 16px;
+      }
+    </style>
+    <script src="../build/build.js"></script>
+  </head>
+  <body>
+    <textarea rows="25" style="width: 200px;">
+      I threw a wish in the well,
+      Don't ask me, I'll never tell
+      I looked to you as it fell,
+      And now you're in my way
+
+      I'd trade my soul for a wish,
+      Pennies and dimes for a kiss
+      I wasn't looking for this,
+      But now you're in my way
+
+      Your stare was holdin',
+      Ripped jeans, skin was showin'
+      Hot night, wind was blowin'
+      Where do you think you're going, baby?
+
+      Hey, I just met you,
+      And this is crazy,
+      But here's my number,
+      So call me, maybe!
+    </textarea>
+    <script>
+      var textarea = document.querySelector('textarea');
+      var position = require('textarea-caret-position');
+
+      var rect = document.createElement('div');
+      document.body.appendChild(rect);
+      rect.style.position = 'absolute';
+      rect.style.backgroundColor = 'red';
+      rect.style.height = '16px';
+      rect.style.width = '1px';
+
+      textarea.addEventListener('keydown', update);
+      textarea.addEventListener('click', update);
+
+      function update() {
+        var coordinates = position(textarea, textarea.selectionEnd);
+        console.log(coordinates);
+        rect.style.top = textarea.offsetTop
+          - textarea.scrollTop
+          + coordinates.top
+          + 'px';
+        rect.style.left = textarea.offsetLeft
+          - textarea.scrollLeft
+          + coordinates.left
+          + 'px';
+      }
+    </script>
+  </body>
+</html>

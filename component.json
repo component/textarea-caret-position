@@ -1,0 +1,16 @@
+{
+  "name": "textarea-caret-position",
+  "repo": "component/textarea-caret-position",
+  "version": "0.0.1",
+  "description": "xy coordinates of a textarea's caret",
+  "dependencies": {
+    "component/css": "*"
+  },
+  "development": {
+    "component/assert": "*"
+  },
+  "scripts": [
+    "index.js"
+  ],
+  "license": "MIT"
+}

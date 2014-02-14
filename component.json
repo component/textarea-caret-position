@@ -4,7 +4,7 @@
   "version": "0.0.1",
   "description": "xy coordinates of a textarea's caret",
   "dependencies": {
-    "component/css": "*"
+    "ianstormtaylor/to-camel-case": "*"
   },
   "development": {
     "component/assert": "*"

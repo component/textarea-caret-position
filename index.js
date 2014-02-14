@@ -1,6 +1,6 @@
 /* jshint browser: true */
 
-var css = require('css');
+var camelize = require('to-camel-case');
 
 // the properties that we copy into a mirrored div
 var properties = [
@@ -28,24 +28,24 @@ module.exports = function (textarea, position) {
   // mirrored div
   var div = document.createElement('div');
   document.body.appendChild(div);
-  css(div, {
-    position: 'absolute',
-    'white-space': 'pre-wrap',
-    bottom: '-9999px',
-    left: '-9999px',
-    // don't include scroll bars in size calculations
-    overflow: 'hidden',
-    width: textarea.clientWidth
-      + parseInt(css(textarea, 'border-left-width'))
-      + 'px',
-    height: textarea.clientHeight
-      + parseInt(css(textarea, 'border-top-width'))
-      + 'px',
-  });
+
+  var style = div.style;
+  var computed = getComputedStyle(textarea);
+
+  style.position = 'absolute';
+  style.whiteSpace = 'pre-wrap';
+  style.bottom = style.left = '-9999px';
+  style.overflow = 'hidden';
+  style.width = textarea.clientWidth
+    + parseInt(computed.getPropertyValue('border-left-width'))
+    + 'px';
+  style.height = textarea.clientHeight
+    + parseInt(computed.getPropertyValue('border-top-width'))
+    + 'px';
 
   // transfer textarea properties to the div
   properties.forEach(function (prop) {
-    css(div, prop, css(textarea, prop));
+    style[camelize(prop)] = computed.getPropertyValue(prop);
   });
 
   div.textContent = textarea.value.substring(0, position);

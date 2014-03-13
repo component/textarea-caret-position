@@ -1,17 +1,38 @@
 /* jshint browser: true */
 
 // the properties that we copy into a mirrored div
+// note that some browsers, such as firefox,
+// do not concatenate properties, i.e. padding-top, bottom etc. -> padding,
+// so we have to do every single property specifically.
 var properties = [
   'box-sizing',
-  'border-width',
-  'padding',
-  'font',
-  'letter-spacing',
-  'word-spacing',
+
+  'border-top-width',
+  'border-right-width',
+  'border-bottom-width',
+  'border-left-width',
+
+  'padding-top',
+  'padding-right',
+  'padding-bottom',
+  'padding-left',
+
+  // https://developer.mozilla.org/en-US/docs/Web/CSS/font
+  'font-style',
+  'font-variant',
+  'font-weight',
+  'font-stretch',
+  'font-size',
   'line-height',
+  'font-family',
+
+  'text-align',
   'text-transform',
   'text-indent',
   'text-decoration',  // might not make a difference, but better be safe
+
+  'letter-spacing',
+  'word-spacing',
 ];
 
 module.exports = function (textarea, position) {
@@ -22,9 +43,12 @@ module.exports = function (textarea, position) {
   var style = div.style;
   var computed = getComputedStyle(textarea);
 
-  style.position = 'absolute';
+  // default textarea styles
   style.whiteSpace = 'pre-wrap';
   style.wordWrap = 'break-word';
+
+  // position off-screen
+  style.position = 'absolute';
   style.bottom = style.left = '-9999px';
   style.overflow = 'hidden';
   style.width = computed.width;    // exclude the scrollbar, so the mirror div

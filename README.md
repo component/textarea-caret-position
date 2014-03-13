@@ -1,6 +1,6 @@
 # Textarea Caret Position
 
-Get the `top` and `left` coordinates of a caret in a textarea. Useful for textarea textcompletes like github, twitter, etc.
+Get the `top` and `left` coordinates of a caret in a textarea. Useful for textarea autocompletes like GitHub, Twitter etc.
 
 ## API
 
@@ -22,7 +22,11 @@ document.querySelector('textarea').addEventListener('input', function () {
 
 ## Caveats
 
-A little off when there are scroll bars.
+None.
+
+## Dependencies
+
+None.
 
 ## License
 

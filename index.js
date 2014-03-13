@@ -34,14 +34,11 @@ module.exports = function (textarea, position) {
 
   style.position = 'absolute';
   style.whiteSpace = 'pre-wrap';
+  style.wordWrap = 'break-word';
   style.bottom = style.left = '-9999px';
   style.overflow = 'hidden';
-  style.width = textarea.clientWidth
-    + parseInt(computed.getPropertyValue('border-left-width'))
-    + 'px';
-  style.height = textarea.clientHeight
-    + parseInt(computed.getPropertyValue('border-top-width'))
-    + 'px';
+  style.width = computed.width;
+  style.height = computed.height;
 
   // transfer textarea properties to the div
   properties.forEach(function (prop) {

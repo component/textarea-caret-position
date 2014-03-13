@@ -22,7 +22,7 @@ document.querySelector('textarea').addEventListener('input', function () {
 
 ## Caveats
 
-A little off when there are scroll bars.
+The position is off when the cursor is in a word that was wrapped off from the previous line due to being too long, and there is more whitespace at the end of the previous line than the column the cursor is at. Here's an [example](test/position_off_after_wrapping_with_whitespace_before_EOL.gif). Pull requests are welcome against [issue #7](https://github.com/component/textarea-caret-position/issues/7).
 
 ## License
 

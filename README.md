@@ -18,7 +18,7 @@ reproduce the wrapping in the faux div.
 * not confused by horizontal or vertical scrollbars in the textarea
 * supports hard returns, tabs and consecutive spaces in the text
 * correct position on lines longer than the columns in the text area
-* no "ghost" position in the empty space at the end of a line when wrapping long words
+* no ["ghost" position in the empty space](https://github.com/component/textarea-caret-position/blob/06d2197f85f96405b43724e56dc56f220c0092a5/test/position_off_after_wrapping_with_whitespace_before_EOL.gif) at the end of a line when wrapping long words
 
 
 ## API

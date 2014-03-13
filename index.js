@@ -4,7 +4,7 @@ function camelize(string) {
   return string.replace(/[_-](\w)/g, function (matched, letter) {
     return letter.toUpperCase()
   })
-};  
+};
 
 
 // the properties that we copy into a mirrored div
@@ -52,12 +52,12 @@ module.exports = function (textarea, position) {
   span.textContent = textarea.value.substring(position);
   div.appendChild(span);
 
-  var position = {
+  var coordinates = {
     top: span.offsetTop + parseInt(computed.getPropertyValue('border-top-width')),
     left: span.offsetLeft + parseInt(computed.getPropertyValue('border-left-width')),
   };
 
   document.body.removeChild(div);
 
-  return position;
+  return coordinates;
 }

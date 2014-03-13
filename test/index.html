@@ -34,13 +34,14 @@
     </textarea>
     <script>
       var textarea = document.querySelector('textarea');
+      var fontSize = getComputedStyle(textarea).getPropertyValue('font-size');
       var position = require('textarea-caret-position');
 
       var rect = document.createElement('div');
       document.body.appendChild(rect);
       rect.style.position = 'absolute';
       rect.style.backgroundColor = 'red';
-      rect.style.height = '16px';
+      rect.style.height = fontSize;
       rect.style.width = '1px';
 
       textarea.addEventListener('keyup', update);

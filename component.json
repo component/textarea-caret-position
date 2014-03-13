@@ -1,10 +1,9 @@
 {
   "name": "textarea-caret-position",
   "repo": "component/textarea-caret-position",
-  "version": "0.0.2",
-  "description": "xy coordinates of a textarea's caret",
+  "version": "1.0.0",
+  "description": "(x, y) coordinates of a textarea's caret",
   "dependencies": {
-    "ianstormtaylor/to-camel-case": "*"
   },
   "development": {
     "component/assert": "*"

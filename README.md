@@ -1,6 +1,6 @@
 # Textarea Caret Position
 
-Get the `top` and `left` coordinates of a caret in a textarea. Useful for textarea textcompletes like github, twitter, etc.
+Get the `top` and `left` coordinates of a caret in a textarea. Useful for textarea autocompletes like GitHub, Twitter etc.
 
 ## API
 
@@ -22,7 +22,11 @@ document.querySelector('textarea').addEventListener('input', function () {
 
 ## Caveats
 
-The position is off when the cursor is in a word that was wrapped off from the previous line due to being too long, and there is more whitespace at the end of the previous line than the column the cursor is at. Here's an [example](test/position_off_after_wrapping_with_whitespace_before_EOL.gif). Pull requests are welcome against [issue #7](https://github.com/component/textarea-caret-position/issues/7).
+None.
+
+## Dependencies
+
+None.
 
 ## License
 

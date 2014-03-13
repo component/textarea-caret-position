@@ -1,6 +1,25 @@
 # Textarea Caret Position
 
-Get the `top` and `left` coordinates of a caret in a textarea. Useful for textarea autocompletes like GitHub, Twitter etc.
+Get the `top` and `left` coordinates of a caret in a `<textarea>`, in pixels.
+Useful for textarea autocompletes like GitHub, Twitter etc.
+
+How it's done: a faux `<div>` is created off-screen and styled exactly like the
+textarea. Then, the text of the textarea up to the caret is copied into the div
+and a `<span>` is inserted right after it. Then, the text content of the span is
+set to the remainder of the text in the textarea, in order to faithfully 
+reproduce the wrapping in the faux div.
+
+## Features
+
+* pixel precision
+* no dependencies whatsoever
+* supports any font family and size, as well as text-transforms
+* the text area can have arbitrary padding or borders
+* not confused by horizontal or vertical scrollbars in the textarea
+* supports hard returns, tabs and consecutive spaces in the text
+* correct position on lines longer than the columns in the text area
+* no "ghost" position in the empty space at the end of a line when wrapping long words
+
 
 ## API
 
@@ -27,6 +46,11 @@ None.
 ## Dependencies
 
 None.
+
+## TODO
+
+* Add tests.
+* Test IE compatibility - see [this](http://stackoverflow.com/questions/16212871/get-the-offset-position-of-the-caret-in-a-textarea-in-pixels). Consider adding IE-specific code if it avoids the necessity of creating the faux div.
 
 ## License
 

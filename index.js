@@ -1,12 +1,5 @@
 /* jshint browser: true */
 
-function camelize(string) {
-  return string.replace(/[_-](\w)/g, function (matched, letter) {
-    return letter.toUpperCase()
-  })
-};
-
-
 // the properties that we copy into a mirrored div
 var properties = [
   'box-sizing',
@@ -60,4 +53,10 @@ module.exports = function (textarea, position) {
   document.body.removeChild(div);
 
   return coordinates;
+}
+
+function camelize(string) {
+  return string.replace(/[_-](\w)/g, function (matched, letter) {
+    return letter.toUpperCase()
+  })
 }

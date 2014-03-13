@@ -3,8 +3,6 @@
   "repo": "component/textarea-caret-position",
   "version": "1.0.0",
   "description": "(x, y) coordinates of a textarea's caret",
-  "dependencies": {
-  },
   "development": {
     "component/assert": "*"
   },

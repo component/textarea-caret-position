@@ -5,38 +5,38 @@
 // do not concatenate properties, i.e. padding-top, bottom etc. -> padding,
 // so we have to do every single property specifically.
 var properties = [
-  'box-sizing',
+  'boxSizing',
   'width',  // on Chrome and IE, exclude the scrollbar, so the mirror div wraps exactly as the textarea does
   'height',
-  'overflow-x',
-  'overflow-y',  // copy the scrollbar for IE
+  'overflowX',
+  'overflowY',  // copy the scrollbar for IE
 
-  'border-top-width',
-  'border-right-width',
-  'border-bottom-width',
-  'border-left-width',
+  'borderTopWidth',
+  'borderRightWidth',
+  'borderBottomWidth',
+  'borderLeftWidth',
 
-  'padding-top',
-  'padding-right',
-  'padding-bottom',
-  'padding-left',
+  'paddingTop',
+  'paddingRight',
+  'paddingBottom',
+  'paddingLeft',
 
   // https://developer.mozilla.org/en-US/docs/Web/CSS/font
-  'font-style',
-  'font-variant',
-  'font-weight',
-  'font-stretch',
-  'font-size',
-  'line-height',
-  'font-family',
+  'fontStyle',
+  'fontVariant',
+  'fontWeight',
+  'fontStretch',
+  'fontSize',
+  'lineHeight',
+  'fontFamily',
 
-  'text-align',
-  'text-transform',
-  'text-indent',
-  'text-decoration',  // might not make a difference, but better be safe
+  'textAlign',
+  'textTransform',
+  'textIndent',
+  'textDecoration',  // might not make a difference, but better be safe
 
-  'letter-spacing',
-  'word-spacing'
+  'letterSpacing',
+  'wordSpacing'
 ];
 
 var isFirefox = !(window.mozInnerScreenX == null);
@@ -59,7 +59,7 @@ module.exports = function (textarea, position, recalculate) {
 
   // transfer textarea properties to the div
   properties.forEach(function (prop) {
-    style[camelize(prop)] = computed.getPropertyValue(prop);
+    style[prop] = computed[prop];
   });
 
   if (isFirefox) {
@@ -82,19 +82,13 @@ module.exports = function (textarea, position, recalculate) {
   div.appendChild(span);
 
   var coordinates = {
-    top: span.offsetTop + parseInt(computed.getPropertyValue('border-top-width')),
-    left: span.offsetLeft + parseInt(computed.getPropertyValue('border-left-width')),
+    top: span.offsetTop + parseInt(computed['borderTopWidth']),  // different ways of accessing computed's members
+    left: span.offsetLeft + parseInt(computed.getPropertyValue('border-left-width'))
   };
 
   document.body.removeChild(div);
 
   return coordinates;
-}
-
-function camelize(string) {
-  return string.replace(/[_-](\w)/g, function (matched, letter) {
-    return letter.toUpperCase()
-  })
 }
 
 /**** Implementation notes ****

@@ -16,7 +16,7 @@ reproduce the wrapping in the faux div.
 * supports any font family and size, as well as text-transforms
 * the text area can have arbitrary padding or borders
 * not confused by horizontal or vertical scrollbars in the textarea
-* supports hard returns, tabs and consecutive spaces in the text
+* supports hard returns, tabs (except on IE) and consecutive spaces in the text
 * correct position on lines longer than the columns in the text area
 * no ["ghost" position in the empty space](https://github.com/component/textarea-caret-position/blob/06d2197f85f96405b43724e56dc56f220c0092a5/test/position_off_after_wrapping_with_whitespace_before_EOL.gif) at the end of a line when wrapping long words
 
@@ -24,24 +24,24 @@ reproduce the wrapping in the faux div.
 ## API
 
 ```js
-var getPosition = require('textarea-caret-position');
+var getCaretCoordinates = require('textarea-caret-position');
 
 document.querySelector('textarea').addEventListener('input', function () {
-  var coordinates = getPosition(this, this.selectionEnd);
+  var coordinates = getCaretCoordinates(this, this.selectionEnd);
   console.log(coordinates.left);
   console.log(coordinates.right);
 })
 ```
 
-### var coordinates = getPosition(textarea, position)
+### var coordinates = getCaretCoordinates(textarea, position)
 
 `position` is a integer of the location of the caret. You basically pass `this.selectionStart` or `this.selectionEnd`. This way, this library isn't opinionated with what the caret is.
 
 `coordinates` is an object of the form `{top: , left: }`.
 
-## Caveats
+## Known issues
 
-None.
+* Tab characters aren't supported in IE9 (issue #14)
 
 ## Dependencies
 
@@ -50,7 +50,7 @@ None.
 ## TODO
 
 * Add tests.
-* Test IE compatibility - see [this](http://stackoverflow.com/questions/16212871/get-the-offset-position-of-the-caret-in-a-textarea-in-pixels). Consider adding IE-specific code if it avoids the necessity of creating the faux div.
+* Consider adding [IE-specific code](http://stackoverflow.com/questions/16212871/get-the-offset-position-of-the-caret-in-a-textarea-in-pixels) if it avoids the necessity of creating the mirror div and might fix #14.
 
 ## License
 

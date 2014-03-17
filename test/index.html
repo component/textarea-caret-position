@@ -1,11 +1,15 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <title>textarea-caret-position testing ground</title>
     <link rel="stylesheet" type="text/css" href="index.css">
     <script src="../build/build.js"></script>
   </head>
   <body>
+    <p>Click anywhere in the text to see a red vertical line &ndash; a 1-pixel-thick
+    <code>div</code> that should be positioned exactly at the location of the caret.</p>
+    
     <textarea rows="25" cols="40">
       I threw a wish in the well,
       Don't ask me, I'll never tell
@@ -13,6 +17,7 @@
       I looked to you as it fell,
       And now you're in my way
 		And	tabs	are	handled	just	fine		
+      Except in IE9.
 
       I'd trade my soul for a wish,
       Pennies and dimes for a kiss
@@ -29,10 +34,11 @@
       But here's my number,
       So call me, maybe!
     </textarea>
+    
     <script>
       var textarea = document.querySelector('textarea');
       var fontSize = getComputedStyle(textarea).getPropertyValue('font-size');
-      var position = require('textarea-caret-position');
+      var getCaretCoordinates = require('textarea-caret-position');
 
       var rect = document.createElement('div');
       document.body.appendChild(rect);
@@ -41,11 +47,12 @@
       rect.style.height = fontSize;
       rect.style.width = '1px';
 
-      textarea.addEventListener('keyup', update);
-      textarea.addEventListener('click', update);
+      ['keyup', 'click', 'scroll'].forEach(function (event) {
+       textarea.addEventListener(event, update);
+      });
 
       function update() {
-        var coordinates = position(textarea, textarea.selectionEnd);
+        var coordinates = getCaretCoordinates(textarea, textarea.selectionEnd);
         console.log(coordinates);
         rect.style.top = textarea.offsetTop
           - textarea.scrollTop

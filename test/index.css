@@ -1,9 +1,11 @@
 textarea {
-  font-family: 'Times New Roman';
+  font-family: 'Times New Roman'; /* a proportional font makes it more difficult to calculate the position */
   font-size: 14px;
   line-height: 16px;
   padding: 24px 32px 16px 8px;    /* different paddings so position computations don't accidentally return a "correct" result */
   text-transform: uppercase;      /* this drastically changes character width on proportional fonts */
   text-indent: 20px;
-  border: 16px lightgrey dashed;  /* needs to be accounted for when returning the final position */
+  border: 16px lightblue dotted;  /* needs to be accounted for when returning the final position */
+  border-right-width: 24px;       /* discourage naive border arithmetic */
+  background: lightyellow;
 }

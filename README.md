@@ -13,6 +13,7 @@ reproduce the wrapping in the faux div.
 
 * pixel precision
 * no dependencies whatsoever
+* browser compatibility: Chrome, Safari, Firefox, IE9+; may work but not tested in Opera, IE8 or older
 * supports any font family and size, as well as text-transforms
 * the text area can have arbitrary padding or borders
 * not confused by horizontal or vertical scrollbars in the textarea
@@ -28,8 +29,8 @@ var getCaretCoordinates = require('textarea-caret-position');
 
 document.querySelector('textarea').addEventListener('input', function () {
   var coordinates = getCaretCoordinates(this, this.selectionEnd);
+  console.log(coordinates.top);
   console.log(coordinates.left);
-  console.log(coordinates.right);
 })
 ```
 

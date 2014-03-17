@@ -1,11 +1,15 @@
 /* jshint browser: true */
 
-// the properties that we copy into a mirrored div
-// note that some browsers, such as firefox,
+// The properties that we copy into a mirrored div.
+// Note that some browsers, such as Firefox,
 // do not concatenate properties, i.e. padding-top, bottom etc. -> padding,
 // so we have to do every single property specifically.
 var properties = [
   'box-sizing',
+  'width',  // on Chrome and IE, exclude the scrollbar, so the mirror div wraps exactly as the textarea does
+  'height',
+  'overflow-x',
+  'overflow-y',  // copy the scrollbar for IE
 
   'border-top-width',
   'border-right-width',
@@ -32,12 +36,14 @@ var properties = [
   'text-decoration',  // might not make a difference, but better be safe
 
   'letter-spacing',
-  'word-spacing',
+  'word-spacing'
 ];
 
-module.exports = function (textarea, position) {
+var isFirefox = !(window.mozInnerScreenX == null);
+module.exports = function (textarea, position, recalculate) {
   // mirrored div
   var div = document.createElement('div');
+  div.id = 'textarea-caret-position-mirror-div';
   document.body.appendChild(div);
 
   var style = div.style;
@@ -48,16 +54,22 @@ module.exports = function (textarea, position) {
   style.wordWrap = 'break-word';
 
   // position off-screen
-  style.position = 'absolute';
-  style.bottom = style.left = '-9999px';
-  style.overflow = 'hidden';
-  style.width = computed.width;    // exclude the scrollbar, so the mirror div
-  style.height = computed.height;  // ...wraps exactly as the textarea does
+  style.position = 'absolute';  // required to return coordinates properly
+  style.visibility = 'hidden';  // not 'display: none' because we want rendering
 
   // transfer textarea properties to the div
   properties.forEach(function (prop) {
     style[camelize(prop)] = computed.getPropertyValue(prop);
   });
+
+  if (isFirefox) {
+    style.width = parseInt(computed.width) - 2 + 'px'  // Firefox adds 2 pixels to the padding - https://bugzilla.mozilla.org/show_bug.cgi?id=753662
+    // Firefox lies about the overflow property for textareas: https://bugzilla.mozilla.org/show_bug.cgi?id=984275
+    if (textarea.scrollHeight > parseInt(computed.height))
+      style.overflowY = 'scroll';
+  } else {
+    style.overflow = 'hidden';  // for Chrome to not render a scrollbar; IE keeps overflowY = 'scroll'
+  }  
 
   div.textContent = textarea.value.substring(0, position);
 
@@ -84,3 +96,35 @@ function camelize(string) {
     return letter.toUpperCase()
   })
 }
+
+/**** Implementation notes ****
+
+For the same textarea of 40 columns, Chrome 33, Firefox 27 and IE9 return completely different values
+for computed.width, textarea.offsetWidth, and textarea.clientWidth. No two are alike:
+
+Chrome
+>> computed.width  // getComputedStyle(textarea)
+"240px" = the text itself, no borders, no padding, no scrollbars
+>> textarea.clientWidth
+280 = computed.width + padding-left + padding-right
+>> textarea.offsetWidth
+327 = clientWidth + scrollbar (15px) + border-left + border-right
+
+IE: scrollbar is 16px, text-only is 224px
+>> computed.width
+"241.37px" = text only + scrollbar?? + 1.37px?!
+>> textarea.clientWidth 
+264
+>> textarea.offsetWidth
+313 
+
+FF 27
+>> computed.width
+"265.667px"
+>> textarea.clientWidth
+249 - the only browser where textarea.clientWidth < computed.width
+>> textarea.offsetWidth
+338
+
+
+*/

@@ -53,7 +53,7 @@
 
       function update() {
         var coordinates = getCaretCoordinates(textarea, textarea.selectionEnd);
-        console.log(coordinates);
+        console.log('(top, left) = (%s, %s)', coordinates.top, coordinates.left);
         rect.style.top = textarea.offsetTop
           - textarea.scrollTop
           + coordinates.top

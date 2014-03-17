@@ -9,11 +9,15 @@ and a `<span>` is inserted right after it. Then, the text content of the span is
 set to the remainder of the text in the textarea, in order to faithfully 
 reproduce the wrapping in the faux div.
 
+## Demo
+
+**Check out the [JSFiddle](http://jsfiddle.net/dandv/aFPA7/).**
+
 ## Features
 
 * pixel precision
 * no dependencies whatsoever
-* browser compatibility: Chrome, Safari, Firefox, IE9+; may work but not tested in Opera, IE8 or older
+* browser compatibility: Chrome, Safari, Firefox (despite [two](https://bugzilla.mozilla.org/show_bug.cgi?id=753662) [bugs](https://bugzilla.mozilla.org/show_bug.cgi?id=984275) it has), IE9+; may work but not tested in Opera, IE8 or older
 * supports any font family and size, as well as text-transforms
 * the text area can have arbitrary padding or borders
 * not confused by horizontal or vertical scrollbars in the textarea

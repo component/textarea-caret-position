@@ -90,35 +90,3 @@ module.exports = function (textarea, position, recalculate) {
 
   return coordinates;
 }
-
-/**** Implementation notes ****
-
-For the same textarea of 40 columns, Chrome 33, Firefox 27 and IE9 return completely different values
-for computed.width, textarea.offsetWidth, and textarea.clientWidth. No two are alike:
-
-Chrome
->> computed.width  // getComputedStyle(textarea)
-"240px" = the text itself, no borders, no padding, no scrollbars
->> textarea.clientWidth
-280 = computed.width + padding-left + padding-right
->> textarea.offsetWidth
-327 = clientWidth + scrollbar (15px) + border-left + border-right
-
-IE: scrollbar is 16px, text-only is 224px
->> computed.width
-"241.37px" = text only + scrollbar?? + 1.37px?!
->> textarea.clientWidth 
-264
->> textarea.offsetWidth
-313 
-
-FF 27
->> computed.width
-"265.667px"
->> textarea.clientWidth
-249 - the only browser where textarea.clientWidth < computed.width
->> textarea.offsetWidth
-338
-
-
-*/

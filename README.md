@@ -17,7 +17,7 @@ reproduce the wrapping in the faux div.
 
 * pixel precision
 * no dependencies whatsoever
-* browser compatibility: Chrome, Safari, Firefox (despite [two](https://bugzilla.mozilla.org/show_bug.cgi?id=753662) [bugs](https://bugzilla.mozilla.org/show_bug.cgi?id=984275) it has), IE9+; may work but not tested in Opera, IE8 or older
+* browser compatibility: Chrome, Safari, Firefox (despite [two](https://bugzilla.mozilla.org/show_bug.cgi?id=753662) [bugs](https://bugzilla.mozilla.org/show_bug.cgi?id=984275) it has), Opera, IE9+
 * supports any font family and size, as well as text-transforms
 * the text area can have arbitrary padding or borders
 * not confused by horizontal or vertical scrollbars in the textarea
@@ -40,7 +40,7 @@ document.querySelector('textarea').addEventListener('input', function () {
 
 ### var coordinates = getCaretCoordinates(textarea, position)
 
-`position` is a integer of the location of the caret. You basically pass `this.selectionStart` or `this.selectionEnd`. This way, this library isn't opinionated with what the caret is.
+`position` is a integer of the location of the caret. You basically pass `this.selectionStart` or `this.selectionEnd`. This way, this library isn't opinionated about what the caret is.
 
 `coordinates` is an object of the form `{top: , left: }`.
 
@@ -55,7 +55,34 @@ None.
 ## TODO
 
 * Add tests.
-* Consider adding [IE-specific code](http://stackoverflow.com/questions/16212871/get-the-offset-position-of-the-caret-in-a-textarea-in-pixels) if it avoids the necessity of creating the mirror div and might fix #14.
+* Consider adding [IE-specific](http://geekswithblogs.net/svanvliet/archive/2005/03/24/textarea-cursor-position-with-javascript.aspx) [code](http://stackoverflow.com/questions/16212871/get-the-offset-position-of-the-caret-in-a-textarea-in-pixels) if it avoids the necessity of creating the mirror div and might fix #14.
+
+## Implementation notes
+
+For the same textarea of 25 rows and 40 columns, Chrome 33, Firefox 27 and IE9 return completely different values
+for `computed.width`, `textarea.offsetWidth`, and `textarea.clientWidth`. Here, `computed` is `getComputedStyle(textarea)`:
+
+Chrome 33
+* `computed.width `: "240px" = the text itself, no borders, no padding, no scrollbars
+* `textarea.clientWidth`: 280 = computed.width + padding-left + padding-right
+* `textarea.offsetWidth`: 327 = clientWidth + scrollbar (15px) + border-left + border-right
+
+IE 9: scrollbar looks 16px, the text itself in the text area is 224px wide
+* `computed.width`: "241.37px" = text only + sub-pixel scrollbar? (1.37px)
+* `textarea.clientWidth`: 264
+* `textarea.offsetWidth`: 313
+
+Firefox 27
+* `computed.width`: "265.667px"
+* `textarea.clientWidth`: 249 - the only browser where textarea.clientWidth < computed.width
+* `textarea.offsetWidth`: 338
+
+
+## Contributors
+
+* Jonathan Ong ([jonathanong](https://github.com/jonathanong))
+* Dan Dascalescu ([dandv](https://github.com/dandv))
+
 
 ## License
 

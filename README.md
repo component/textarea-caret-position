@@ -56,6 +56,7 @@ None.
 
 * Add tests.
 * Consider adding [IE-specific](http://geekswithblogs.net/svanvliet/archive/2005/03/24/textarea-cursor-position-with-javascript.aspx) [code](http://stackoverflow.com/questions/16212871/get-the-offset-position-of-the-caret-in-a-textarea-in-pixels) if it avoids the necessity of creating the mirror div and might fix #14.
+* Test IE8 support with `currentStyle`.
 
 ## Implementation notes
 

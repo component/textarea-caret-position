@@ -47,7 +47,7 @@ module.exports = function (textarea, position, recalculate) {
   document.body.appendChild(div);
 
   var style = div.style;
-  var computed = getComputedStyle(textarea);
+  var computed = window.getComputedStyle? getComputedStyle(textarea) : textarea.currentStyle;  // currentStyle for IE < 9
 
   // default textarea styles
   style.whiteSpace = 'pre-wrap';
@@ -82,8 +82,8 @@ module.exports = function (textarea, position, recalculate) {
   div.appendChild(span);
 
   var coordinates = {
-    top: span.offsetTop + parseInt(computed['borderTopWidth']),  // different ways of accessing computed's members
-    left: span.offsetLeft + parseInt(computed.getPropertyValue('border-left-width'))
+    top: span.offsetTop + parseInt(computed['borderTopWidth']),
+    left: span.offsetLeft + parseInt(computed['borderLeftWidth'])
   };
 
   document.body.removeChild(div);

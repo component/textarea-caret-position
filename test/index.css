@@ -1,4 +1,4 @@
-textarea {
+input[type="text"], textarea {
   font-family: 'Times New Roman'; /* a proportional font makes it more difficult to calculate the position */
   font-size: 14px;
   line-height: 16px;

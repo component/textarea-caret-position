@@ -1,13 +1,16 @@
 # Textarea Caret Position
 
-Get the `top` and `left` coordinates of a caret in a `<textarea>`, in pixels.
-Useful for textarea autocompletes like GitHub, Twitter etc.
+Get the `top` and `left` coordinates of the caret in a `<textarea>` or
+`<input type="text">`, in pixels. Useful for textarea autocompletes like 
+GitHub or Twitter, or for single-line autocompletes like the name drop-down 
+in Facebook or the company dropdown on Google Finance.
 
 How it's done: a faux `<div>` is created off-screen and styled exactly like the
-textarea. Then, the text of the textarea up to the caret is copied into the div
-and a `<span>` is inserted right after it. Then, the text content of the span is
-set to the remainder of the text in the textarea, in order to faithfully 
-reproduce the wrapping in the faux div.
+`textarea` or `input`. Then, the text of the element up to the caret is copied
+into the `div` and a `<span>` is inserted right after it. Then, the text content
+of the span is set to the remainder of the text in the textarea, in order to 
+faithfully reproduce the wrapping in the faux `div`. The same is done for the
+`input` to simplify the code, though it makes no difference.
 
 ## Demo
 
@@ -15,7 +18,9 @@ reproduce the wrapping in the faux div.
 
 ## Features
 
+* supports `<textarea>`s and `<input type="text">' elements
 * pixel precision
+* RTL (right-to-left) support
 * no dependencies whatsoever
 * browser compatibility: Chrome, Safari, Firefox (despite [two](https://bugzilla.mozilla.org/show_bug.cgi?id=753662) [bugs](https://bugzilla.mozilla.org/show_bug.cgi?id=984275) it has), Opera, IE9+
 * supports any font family and size, as well as text-transforms
@@ -23,7 +28,8 @@ reproduce the wrapping in the faux div.
 * not confused by horizontal or vertical scrollbars in the textarea
 * supports hard returns, tabs (except on IE) and consecutive spaces in the text
 * correct position on lines longer than the columns in the text area
-* no ["ghost" position in the empty space](https://github.com/component/textarea-caret-position/blob/06d2197f85f96405b43724e56dc56f220c0092a5/test/position_off_after_wrapping_with_whitespace_before_EOL.gif) at the end of a line when wrapping long words
+* [no problem](http://archive.today/F4XCV#13402035) getting the correct position when the input text is scrolled (i.e. the first visible character is no longer the first in the text)
+* no ["ghost" position in the empty space](https://github.com/component/textarea-caret-position/blob/06d2197f85f96405b43724e56dc56f220c0092a5/test/position_off_after_wrapping_with_whitespace_before_EOL.gif) at the end of a line when wrapping long words in a `<textarea>`
 
 
 ## API
@@ -38,7 +44,7 @@ document.querySelector('textarea').addEventListener('input', function () {
 })
 ```
 
-### var coordinates = getCaretCoordinates(textarea, position)
+### var coordinates = getCaretCoordinates(element, position)
 
 `position` is a integer of the location of the caret. You basically pass `this.selectionStart` or `this.selectionEnd`. This way, this library isn't opinionated about what the caret is.
 
@@ -46,7 +52,7 @@ document.querySelector('textarea').addEventListener('input', function () {
 
 ## Known issues
 
-* Tab characters aren't supported in IE9 (issue #14)
+* Tab characters in `<textarea>`s aren't supported in IE9 (issue #14)
 
 ## Dependencies
 
@@ -81,8 +87,8 @@ Firefox 27
 
 ## Contributors
 
-* Jonathan Ong ([jonathanong](https://github.com/jonathanong))
 * Dan Dascalescu ([dandv](https://github.com/dandv))
+* Jonathan Ong ([jonathanong](https://github.com/jonathanong))
 
 
 ## License

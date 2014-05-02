@@ -5,6 +5,7 @@
 // do not concatenate properties, i.e. padding-top, bottom etc. -> padding,
 // so we have to do every single property specifically.
 var properties = [
+  'direction',  // RTL support
   'boxSizing',
   'width',  // on Chrome and IE, exclude the scrollbar, so the mirror div wraps exactly as the textarea does
   'height',
@@ -27,6 +28,7 @@ var properties = [
   'fontWeight',
   'fontStretch',
   'fontSize',
+  'fontSizeAdjust',
   'lineHeight',
   'fontFamily',
 
@@ -43,21 +45,22 @@ var isFirefox = !(window.mozInnerScreenX == null);
 module.exports = function (textarea, position, recalculate) {
   // mirrored div
   var div = document.createElement('div');
-  div.id = 'textarea-caret-position-mirror-div';
+  div.id = 'input-textarea-caret-position-mirror-div';
   document.body.appendChild(div);
 
   var style = div.style;
-  var computed = window.getComputedStyle? getComputedStyle(textarea) : textarea.currentStyle;  // currentStyle for IE < 9
+  var computed = window.getComputedStyle? getComputedStyle(element) : element.currentStyle;  // currentStyle for IE < 9
 
   // default textarea styles
   style.whiteSpace = 'pre-wrap';
-  style.wordWrap = 'break-word';
+  if (element.nodeName !== 'INPUT')
+    style.wordWrap = 'break-word';  // only for textarea-s
 
   // position off-screen
   style.position = 'absolute';  // required to return coordinates properly
   style.visibility = 'hidden';  // not 'display: none' because we want rendering
 
-  // transfer textarea properties to the div
+  // transfer the element's properties to the div
   properties.forEach(function (prop) {
     style[prop] = computed[prop];
   });
@@ -65,20 +68,24 @@ module.exports = function (textarea, position, recalculate) {
   if (isFirefox) {
     style.width = parseInt(computed.width) - 2 + 'px'  // Firefox adds 2 pixels to the padding - https://bugzilla.mozilla.org/show_bug.cgi?id=753662
     // Firefox lies about the overflow property for textareas: https://bugzilla.mozilla.org/show_bug.cgi?id=984275
-    if (textarea.scrollHeight > parseInt(computed.height))
+    if (element.scrollHeight > parseInt(computed.height))
       style.overflowY = 'scroll';
   } else {
     style.overflow = 'hidden';  // for Chrome to not render a scrollbar; IE keeps overflowY = 'scroll'
   }  
 
-  div.textContent = textarea.value.substring(0, position);
+  div.textContent = element.value.substring(0, position);
+  // the second special handling for input type="text" vs textarea: spaces need to be replaced with non-breaking spaces - http://stackoverflow.com/a/13402035/1269037
+  if (element.nodeName === 'INPUT')
+    div.textContent = div.textContent.replace(/\s/g, "\u00a0");
 
   var span = document.createElement('span');
   // Wrapping must be replicated *exactly*, including when a long word gets
   // onto the next line, with whitespace at the end of the line before (#7).
   // The  *only* reliable way to do that is to copy the *entire* rest of the
   // textarea's content into the <span> created at the caret position.
-  span.textContent = textarea.value.substring(position);
+  // for inputs, just '.' would be enough, but why bother?
+  span.textContent = element.value.substring(position) || '.';  // || because a completely empty faux span doesn't render at all
   div.appendChild(span);
 
   var coordinates = {

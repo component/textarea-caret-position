@@ -42,7 +42,8 @@ var properties = [
 ];
 
 var isFirefox = !(window.mozInnerScreenX == null);
-module.exports = function (textarea, position, recalculate) {
+
+var getCaretCoordinatesFn = function (element, position, recalculate) {
   // mirrored div
   var div = document.createElement('div');
   div.id = 'input-textarea-caret-position-mirror-div';
@@ -96,4 +97,10 @@ module.exports = function (textarea, position, recalculate) {
   document.body.removeChild(div);
 
   return coordinates;
+}
+
+if (typeof Package !== 'undefined') {
+  getCaretCoordinates = getCaretCoordinatesFn;  // Meteor
+} else {
+  module.exports = getCaretCoordinatesFn;    // Component
 }

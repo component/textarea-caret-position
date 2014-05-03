@@ -5,7 +5,7 @@
     <title>input and textarea caret-position testing ground</title>
     <link rel="stylesheet" type="text/css" href="index.css">
     <script src="../build/build.js"></script>
-    <script src="../index.js"></script>
+    <script src="../index.js"></script>  <!-- this will trigger an `Uncaught ReferenceError: module is not defined`, which can be safely ignored -->
   </head>
   <body>
     <p>Click anywhere in the text to see a red vertical line &ndash; a 1-pixel-thick
@@ -41,8 +41,9 @@
     </textarea>
     
     <script>
-      if (window.require)  // if not in Component, allow the bare HTML demo to work
-        getCaretCoordinates = require('textarea-caret-position');
+      // if Component is not installed, allow the bare HTML demo to work
+      getCaretCoordinates = window.require ? require('textarea-caret-position') : getCaretCoordinatesFn;
+        
       ['input[type="text"]', 'textarea'].forEach(function (selector) {
         var element = document.querySelector(selector);
         var fontSize = getComputedStyle(element).getPropertyValue('font-size');

@@ -1,5 +1,7 @@
 /* jshint browser: true */
 
+(function () {
+
 // The properties that we copy into a mirrored div.
 // Note that some browsers, such as Firefox,
 // do not concatenate properties, i.e. padding-top, bottom etc. -> padding,
@@ -73,7 +75,7 @@ var getCaretCoordinatesFn = function (element, position, recalculate) {
       style.overflowY = 'scroll';
   } else {
     style.overflow = 'hidden';  // for Chrome to not render a scrollbar; IE keeps overflowY = 'scroll'
-  }  
+  }
 
   div.textContent = element.value.substring(0, position);
   // the second special handling for input type="text" vs textarea: spaces need to be replaced with non-breaking spaces - http://stackoverflow.com/a/13402035/1269037
@@ -101,6 +103,10 @@ var getCaretCoordinatesFn = function (element, position, recalculate) {
 
 if (typeof Package !== 'undefined') {
   getCaretCoordinates = getCaretCoordinatesFn;  // Meteor
-} else {
+} else if (typeof module != "undefined" && typeof module.exports != "undefined") {
   module.exports = getCaretCoordinatesFn;    // Component
+} else {
+  window.getCaretCoordinates = getCaretCoordinatesFn;
 }
+
+}());

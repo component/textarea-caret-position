@@ -18,6 +18,7 @@ var properties = [
   'borderRightWidth',
   'borderBottomWidth',
   'borderLeftWidth',
+  'borderStyle',
 
   'paddingTop',
   'paddingRight',
@@ -40,7 +41,11 @@ var properties = [
   'textDecoration',  // might not make a difference, but better be safe
 
   'letterSpacing',
-  'wordSpacing'
+  'wordSpacing',
+
+  'tabSize',
+  'MozTabSize'
+
 ];
 
 var isFirefox = !(window.mozInnerScreenX == null);
@@ -69,7 +74,6 @@ var getCaretCoordinatesFn = function (element, position, recalculate) {
   });
 
   if (isFirefox) {
-    style.width = parseInt(computed.width) - 2 + 'px'  // Firefox adds 2 pixels to the padding - https://bugzilla.mozilla.org/show_bug.cgi?id=753662
     // Firefox lies about the overflow property for textareas: https://bugzilla.mozilla.org/show_bug.cgi?id=984275
     if (element.scrollHeight > parseInt(computed.height))
       style.overflowY = 'scroll';

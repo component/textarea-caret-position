@@ -8,4 +8,6 @@ input[type="text"], textarea {
   border: 16px lightblue dotted;  /* needs to be accounted for when returning the final position */
   border-right-width: 24px;       /* discourage naive border arithmetic */
   background: lightyellow;
+  tab-size: 20;
+  -moz-tab-size: 20;
 }

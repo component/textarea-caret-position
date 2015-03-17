@@ -38,7 +38,11 @@ var properties = [
   'textDecoration',  // might not make a difference, but better be safe
 
   'letterSpacing',
-  'wordSpacing'
+  'wordSpacing',
+
+  'tab-size',
+  'MozTabSize'
+
 ];
 
 var isFirefox = !(window.mozInnerScreenX == null);
@@ -73,7 +77,7 @@ var getCaretCoordinatesFn = function (element, position, recalculate) {
       style.overflowY = 'scroll';
   } else {
     style.overflow = 'hidden';  // for Chrome to not render a scrollbar; IE keeps overflowY = 'scroll'
-  }  
+  }
 
   div.textContent = element.value.substring(0, position);
   // the second special handling for input type="text" vs textarea: spaces need to be replaced with non-breaking spaces - http://stackoverflow.com/a/13402035/1269037

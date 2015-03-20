@@ -41,7 +41,7 @@ var properties = [
   'letterSpacing',
   'wordSpacing',
 
-  'tab-size',
+  'tabSize',
   'MozTabSize'
 
 ];

@@ -16,6 +16,7 @@ var properties = [
   'borderRightWidth',
   'borderBottomWidth',
   'borderLeftWidth',
+  'borderStyle',
 
   'paddingTop',
   'paddingRight',

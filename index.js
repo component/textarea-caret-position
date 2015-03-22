@@ -50,7 +50,7 @@ var properties = [
 
 var isFirefox = window.mozInnerScreenX != null;
 
-var getCaretCoordinatesFn = function (element, position) {
+function getCaretCoordinates(element, position) {
   // mirrored div
   var div = document.createElement('div');
   div.id = 'input-textarea-caret-position-mirror-div';
@@ -105,12 +105,10 @@ var getCaretCoordinatesFn = function (element, position) {
   return coordinates;
 }
 
-if (typeof Package !== 'undefined') {
-  getCaretCoordinates = getCaretCoordinatesFn;  // Meteor
-} else if (typeof module != "undefined" && typeof module.exports != "undefined") {
-  module.exports = getCaretCoordinatesFn;    // Component
+if (typeof module != "undefined" && typeof module.exports != "undefined") {
+  module.exports = getCaretCoordinates;
 } else {
-  window.getCaretCoordinates = getCaretCoordinatesFn;
+  window.getCaretCoordinates = getCaretCoordinates;
 }
 
 }());

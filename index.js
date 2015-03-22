@@ -48,9 +48,9 @@ var properties = [
 
 ];
 
-var isFirefox = !(window.mozInnerScreenX == null);
+var isFirefox = window.mozInnerScreenX != null;
 
-var getCaretCoordinatesFn = function (element, position, recalculate) {
+var getCaretCoordinatesFn = function (element, position) {
   // mirrored div
   var div = document.createElement('div');
   div.id = 'input-textarea-caret-position-mirror-div';

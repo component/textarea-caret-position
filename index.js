@@ -14,12 +14,6 @@ var properties = [
   'overflowX',
   'overflowY',  // copy the scrollbar for IE
 
-  'borderTopWidth',
-  'borderRightWidth',
-  'borderBottomWidth',
-  'borderLeftWidth',
-  'borderStyle',
-
   'paddingTop',
   'paddingRight',
   'paddingBottom',

@@ -56,7 +56,8 @@
         });
 
         function update() {
-          var coordinates = getCaretCoordinates(element, element.selectionEnd);
+          // change debug option to true for testing purposes only!
+          var coordinates = getCaretCoordinates(element, element.selectionEnd, { debug: !true });
           console.log('(top, left) = (%s, %s)', coordinates.top, coordinates.left);
           rect.style.top = element.offsetTop
             - element.scrollTop

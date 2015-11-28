@@ -50,7 +50,14 @@ var properties = [
 
 var isFirefox = window.mozInnerScreenX != null;
 
-function getCaretCoordinates(element, position) {
+function getCaretCoordinates(element, position, options) {
+
+  var debug = options && options.debug || false;
+  if (debug) {
+    var el = document.querySelector('#input-textarea-caret-position-mirror-div');
+    if ( el ) { el.parentNode.removeChild(el); }
+  }
+
   // mirrored div
   var div = document.createElement('div');
   div.id = 'input-textarea-caret-position-mirror-div';
@@ -66,7 +73,8 @@ function getCaretCoordinates(element, position) {
 
   // position off-screen
   style.position = 'absolute';  // required to return coordinates properly
-  style.visibility = 'hidden';  // not 'display: none' because we want rendering
+  if (!debug)
+    style.visibility = 'hidden';  // not 'display: none' because we want rendering
 
   // transfer the element's properties to the div
   properties.forEach(function (prop) {
@@ -100,7 +108,11 @@ function getCaretCoordinates(element, position) {
     left: span.offsetLeft + parseInt(computed['borderLeftWidth'])
   };
 
-  document.body.removeChild(div);
+  if (debug) {
+    span.style.backgroundColor = '#aaa';
+  } else {
+    document.body.removeChild(div);
+  }
 
   return coordinates;
 }

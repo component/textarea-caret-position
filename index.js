@@ -14,6 +14,7 @@ var properties = [
   'overflowX',
   'overflowY',  // copy the scrollbar for IE
 
+<<<<<<< HEAD
   'borderTopWidth',
   'borderRightWidth',
   'borderBottomWidth',
@@ -23,6 +24,8 @@ var properties = [
   'borderBottomStyle',
   'borderLeftStyle',
 
+=======
+>>>>>>> 6590386... remove border properties, no change to result
   'paddingTop',
   'paddingRight',
   'paddingBottom',

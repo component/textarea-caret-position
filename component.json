@@ -1,7 +1,7 @@
 {
   "name": "textarea-caret-position",
   "repo": "component/textarea-caret-position",
-  "version": "3.0.0",
+  "version": "3.0.1",
   "description": "(x, y) coordinates of the caret in a textarea or input type='text'",
   "scripts": [
     "index.js"

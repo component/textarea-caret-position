@@ -48,9 +48,13 @@ var properties = [
 
 ];
 
-var isFirefox = window.mozInnerScreenX != null;
+var isBrowser = (typeof window !== 'undefined');
+var isFirefox = (isBrowser && window.mozInnerScreenX != null);
 
 function getCaretCoordinates(element, position, options) {
+  if(!isBrowser) {
+    throw new Error('textarea-caret-position#getCaretCoordinates should only be called in a browser');
+  }
 
   var debug = options && options.debug || false;
   if (debug) {
@@ -92,7 +96,7 @@ function getCaretCoordinates(element, position, options) {
   div.textContent = element.value.substring(0, position);
   // the second special handling for input type="text" vs textarea: spaces need to be replaced with non-breaking spaces - http://stackoverflow.com/a/13402035/1269037
   if (element.nodeName === 'INPUT')
-    div.textContent = div.textContent.replace(/\s/g, "\u00a0");
+    div.textContent = div.textContent.replace(/\s/g, '\u00a0');
 
   var span = document.createElement('span');
   // Wrapping must be replicated *exactly*, including when a long word gets
@@ -117,9 +121,9 @@ function getCaretCoordinates(element, position, options) {
   return coordinates;
 }
 
-if (typeof module != "undefined" && typeof module.exports != "undefined") {
+if (typeof module != 'undefined' && typeof module.exports != 'undefined') {
   module.exports = getCaretCoordinates;
-} else {
+} else if(isBrowser){
   window.getCaretCoordinates = getCaretCoordinates;
 }
 

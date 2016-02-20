@@ -12,18 +12,6 @@ var properties = [
   'height',
   'overflowX',
 
-<<<<<<< HEAD
-  'borderTopWidth',
-  'borderRightWidth',
-  'borderBottomWidth',
-  'borderLeftWidth',
-  'borderTopStyle',
-  'borderRightStyle',
-  'borderBottomStyle',
-  'borderLeftStyle',
-
-=======
->>>>>>> 6590386... remove border properties, no change to result
   'paddingTop',
   'paddingRight',
   'paddingBottom',

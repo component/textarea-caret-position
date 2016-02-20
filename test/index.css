@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 input[type="text"], textarea {
   /* a proportional font makes it more difficult to calculate the position */
   font-family: "Times New Roman", "Helvetica Neue", "Calibri Light", Roboto, sans-serif;
@@ -25,7 +25,6 @@ input[type="text"] {
 .col {
   margin-right: 2em;
 }
-=======
 input[type="text"], textarea {
   font-family: 'Times New Roman'; /* a proportional font makes it more difficult to calculate the position */
   font-size: 14px;
@@ -49,4 +48,3 @@ body {
   top: 150px;
   left: 400px;
 }
->>>>>>> 85d35b7... Demo: Add debug checkbox

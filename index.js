@@ -111,6 +111,8 @@ function getCaretCoordinates(element, position, options) {
     top: span.offsetTop + parseInt(computed['borderTopWidth']),
     left: span.offsetLeft + parseInt(computed['borderLeftWidth'])
   };
+  if (element.nodeName === 'INPUT')
+    coordinates.top += (parseInt(computed['height']) - parseInt(computed['line-height'])) / 2;
 
   if (debug) {
     span.style.backgroundColor = '#aaa';

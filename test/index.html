@@ -10,11 +10,8 @@
     <p>Click anywhere in the text to see a red vertical line &ndash; a 1-pixel-thick
     <code>div</code> that should be positioned exactly at the location of the caret.</p>
 
-    <div style="height:48px">
-      <input type="text" size="15" maxlength="240" placeholder="Enter text here" style="height:100%">
-    </div>
-
-    <br/><br/><br/><br/><hr/>
+    <input type="text" size="15" maxlength="240" placeholder="Enter text here">
+    <hr/>
 
     <textarea rows="25" cols="40">
       I threw a wish in the well,
@@ -40,10 +37,21 @@
       But here's my number,
       So call me, maybe!
     </textarea>
+    <hr/>
+
+    <input type="text" size="15" maxlength="240" placeholder="Enter text here" style="line-height:normal;height:50px">
+    <input type="text" size="15" maxlength="240" placeholder="Enter text here" style="height:50px">
 
     <script>
-      ['input[type="text"]', 'textarea'].forEach(function (selector) {
-        var element = document.querySelector(selector);
+      var l = [];
+      for( var s = document.body.getElementsByTagName('input'), i = 0; i < s.length; ++i )
+          l.push( s[ i ] );
+      for( var s = document.body.getElementsByTagName('textarea'), i = 0; i < s.length; ++i )
+          l.push( s[ i ] );
+      console.log(l);
+
+      l.forEach(function (element) {
+          console.log(element);
         var fontSize = getComputedStyle(element).getPropertyValue('font-size');
 
         var rect = document.createElement('div');

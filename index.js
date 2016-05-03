@@ -55,8 +55,9 @@ function getCaretCoordinates(element, position, options) {
   if(!isBrowser) {
     throw new Error('textarea-caret-position#getCaretCoordinates should only be called in a browser');
   }
+  options = options || {};
 
-  var debug = options && options.debug || false;
+  var debug = options.debug || false;
   if (debug) {
     var el = document.querySelector('#input-textarea-caret-position-mirror-div');
     if ( el ) { el.parentNode.removeChild(el); }
@@ -93,7 +94,9 @@ function getCaretCoordinates(element, position, options) {
     style.overflow = 'hidden';  // for Chrome to not render a scrollbar; IE keeps overflowY = 'scroll'
   }
 
-  div.textContent = element.value.substring(0, position);
+  var idx = options.alignToLastChar ? element.value.lastIndexOf(options.alignToLastChar) : position;
+  div.textContent = element.value.substring(0, idx);
+
   // the second special handling for input type="text" vs textarea: spaces need to be replaced with non-breaking spaces - http://stackoverflow.com/a/13402035/1269037
   if (element.nodeName === 'INPUT')
     div.textContent = div.textContent.replace(/\s/g, '\u00a0');

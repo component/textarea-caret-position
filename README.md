@@ -36,7 +36,7 @@ or the [test.html](http://rawgit.com/component/textarea-caret-position/master/te
 ## API
 
 ```js
-var getCaretCoordinates = require('textarea-caret-position');
+var getCaretCoordinates = require('textarea-caret');
 
 document.querySelector('textarea').addEventListener('input', function () {
   var coordinates = getCaretCoordinates(this, this.selectionEnd);

@@ -81,9 +81,11 @@ function getCaretCoordinates(element, position, options) {
     style.visibility = 'hidden';  // not 'display: none' because we want rendering
 
   // transfer the element's properties to the div
-  properties.forEach(function (prop) {
+  var length = properties.length;
+  for (var i = 0; i < length; i++) {
+    var prop = properties[i];
     style[prop] = computed[prop];
-  });
+  }
 
   if (isFirefox) {
     // Firefox lies about the overflow property for textareas: https://bugzilla.mozilla.org/show_bug.cgi?id=984275

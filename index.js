@@ -111,6 +111,12 @@ function getCaretCoordinates(element, position, options) {
     top: span.offsetTop + parseInt(computed['borderTopWidth']),
     left: span.offsetLeft + parseInt(computed['borderLeftWidth'])
   };
+  if ( element.nodeName === 'INPUT' ) {
+    // unfortunately, 1.1 is approximate. The real number depends on the browser, the font, the size... and seems to be pretty hard to get using simple commands
+    var le = computed['line-height'].slice(-2) === "px" ? parseInt(computed['line-height'], 10) : 1.1 *  parseInt(computed['font-size'], 10);
+    coordinates.top += (parseInt(computed['height']) - le) / 2;
+  }
+
 
   if (debug) {
     span.style.backgroundColor = '#aaa';

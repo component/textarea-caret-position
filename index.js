@@ -109,7 +109,8 @@ function getCaretCoordinates(element, position, options) {
 
   var coordinates = {
     top: span.offsetTop + parseInt(computed['borderTopWidth']),
-    left: span.offsetLeft + parseInt(computed['borderLeftWidth'])
+    left: span.offsetLeft + parseInt(computed['borderLeftWidth']),
+    height: span.offsetHeight
   };
 
   if (debug) {

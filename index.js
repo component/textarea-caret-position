@@ -80,9 +80,14 @@ function getCaretCoordinates(element, position, options) {
   if (!debug)
     style.visibility = 'hidden';  // not 'display: none' because we want rendering
 
+  var isInput = element.nodeName === 'INPUT';
   // transfer the element's properties to the div
   properties.forEach(function (prop) {
-    style[prop] = computed[prop];
+    if(isInput && prop === 'lineHeight'){
+      style['lineHeight'] = computed['height']; // text in INPUT is rendered centered
+    } else {
+      style[prop] = computed[prop];
+    }
   });
 
   if (isFirefox) {

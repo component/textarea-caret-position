@@ -13,6 +13,10 @@
     <input type="text" size="15" maxlength="240" placeholder="Enter text here">
 
     <hr/>
+    <label>
+      <input type="checkbox" id="mirrorDivDisplay">Show mirror div
+    </label>
+    <hr/>
 
     <textarea rows="25" cols="40">
       I threw a wish in the well,
@@ -57,7 +61,9 @@
 
         function update() {
           // change debug option to true for testing purposes only!
-          var coordinates = getCaretCoordinates(element, element.selectionEnd, { debug: !true });
+          var coordinates = getCaretCoordinates(element, element.selectionEnd, {
+            debug: document.getElementById('mirrorDivDisplay').checked
+          });
           console.log('(top, left) = (%s, %s)', coordinates.top, coordinates.left);
           rect.style.top = element.offsetTop
             - element.scrollTop

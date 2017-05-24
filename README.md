@@ -64,9 +64,9 @@ The function returns a caret coordinates object of the form `{top: , left: , hei
 
 ## Known issues
 
-* Edge cases with spaces at the end of lines in `<textarea>`s ([#24](https://github.com/component/textarea-caret-position/issues/24))
-* Edge case with selecting from right to left strings longer than the `<input>` ([#40](https://github.com/component/textarea-caret-position/issues/40))
-* Tab characters in `<textarea>`s aren't supported in IE9 ([issue #14](https://github.com/component/textarea-caret-position/issues/14))
+* Off-by-one edge cases with spaces at the end of lines in `<textarea>`s ([#29](https://github.com/component/textarea-caret-position/issues/9#issuecomment-303601894)). This may be a bug in how browsers render the caret.
+* Edge case with selecting from right to left strings longer than the `<input>` ([#40](https://github.com/component/textarea-caret-position/issues/40)). The caret position can be quite off in this case.
+* Tab characters in `<textarea>`s aren't supported in IE9 ([#14](https://github.com/component/textarea-caret-position/issues/14))
 
 
 ## Dependencies

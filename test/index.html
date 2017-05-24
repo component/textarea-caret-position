@@ -31,7 +31,7 @@
       <div class="col">
         <h3><code>&lt;input></code> manual tests</h3>
         <ol>
-          <li>Type text longer than the input, select with the mouse from right to left to cause scrolling left, then click in the input.</li>
+          <li>Type text longer than the input, select with the mouse from right to left to cause scrolling left, then click in the input. (<a href="https://github.com/component/textarea-caret-position/issues/40">#40</a>)</li>
         </ol>
       </div>
     </div>
@@ -67,9 +67,10 @@
       <div class="col">
         <h3><code>&lt;textarea></code> manual tests</h3>
         <ol>
-          <li>Place the cursor before the "T" in "Then" then press arrow down. Fails in Chrome 58, Firefox 53.</li>
-          <li>Place the cursor before "2." and press left arrow. Fails in Firefox 53, works in Chrome.</li>
-          <li>Place the cursor at the beginning of line "3." then press End. Fails in Chrome 58, Firefox 53.</li>
+          <li>Place the cursor before the "T" in "Then" then press arrow down. Fails in Chrome 58, Firefox 53. (<a href="https://github.com/component/textarea-caret-position/issues/9#issuecomment-303601894">#9)</a></li>
+          <li>Place the cursor before "2." and press left arrow. Fails in Firefox 53, works in Chrome. (<a href="https://github.com/component/textarea-caret-position/issues/24#issuecomment-201913059">#24</a>)</li>
+          <li>Place the cursor at the beginning of line "3." then press End. Fails in Chrome 58, Firefox 53. (#9)</li>
+          <li>Click at the end of lines with spaces (e.g. "3." or the line before "2."). Fails in Chrome 58, Firefox 53. (#9)</li>
         </ol>
       </div>
     </div>

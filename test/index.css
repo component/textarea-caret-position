@@ -1,5 +1,6 @@
 input[type="text"], textarea {
-  font-family: 'Times New Roman'; /* a proportional font makes it more difficult to calculate the position */
+  /* a proportional font makes it more difficult to calculate the position */
+  font-family: "Times New Roman", "Helvetica Neue", "Calibri Light", Roboto, sans-serif;
   font-size: 14px;
   line-height: 16px;
   padding: 24px 32px 16px 8px;    /* different paddings so position computations don't accidentally return a "correct" result */

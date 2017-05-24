@@ -11,3 +11,7 @@ input[type="text"], textarea {
   tab-size: 20;
   -moz-tab-size: 20;
 }
+
+input[type="text"] {
+  height: 3em;  /* force a height different from line-height */
+}

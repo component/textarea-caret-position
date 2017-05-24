@@ -1,9 +1,9 @@
 {
   "name": "textarea-caret",
   "repository": "component/textarea-caret-position",
-  "version": "3.0.2",
-  "author": "Jonathan Ong <me@jongleberry.com> (http://jongleberry.com)",
-  "description": "latest version of component/textarea-caret-position",
+  "version": "3.1.0",
+  "authors": "Dan Dascalescu (@dandv), Jonathan Ong <me@jongleberry.com> (http://jongleberry.com)",
+  "description": "(x, y) coordinates of the caret in a textarea or input type='text'",
   "files": [
     "index.js"
   ],

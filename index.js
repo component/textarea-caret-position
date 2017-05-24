@@ -2,10 +2,10 @@
 
 (function () {
 
-// The properties that we copy into a mirrored div.
-// Note that some browsers, such as Firefox,
-// do not concatenate properties, i.e. padding-top, bottom etc. -> padding,
-// so we have to do every single property specifically.
+// We'll copy the properties below into the mirror div.
+// Note that some browsers, such as Firefox, do not concatenate properties
+// into their shorthand (e.g. padding-top, padding-bottom etc. -> padding),
+// so we have to list every single property explicitly.
 var properties = [
   'direction',  // RTL support
   'boxSizing',
@@ -52,37 +52,43 @@ var isBrowser = (typeof window !== 'undefined');
 var isFirefox = (isBrowser && window.mozInnerScreenX != null);
 
 function getCaretCoordinates(element, position, options) {
-  if(!isBrowser) {
+  if (!isBrowser) {
     throw new Error('textarea-caret-position#getCaretCoordinates should only be called in a browser');
   }
 
   var debug = options && options.debug || false;
   if (debug) {
     var el = document.querySelector('#input-textarea-caret-position-mirror-div');
-    if ( el ) { el.parentNode.removeChild(el); }
+    if (el) el.parentNode.removeChild(el);
   }
 
-  // mirrored div
+  // The mirror div will replicate the textarea's style
   var div = document.createElement('div');
   div.id = 'input-textarea-caret-position-mirror-div';
   document.body.appendChild(div);
 
   var style = div.style;
   var computed = window.getComputedStyle ? window.getComputedStyle(element) : element.currentStyle;  // currentStyle for IE < 9
+  var isInput = element.nodeName === 'INPUT';
 
-  // default textarea styles
+  // Default textarea styles
   style.whiteSpace = 'pre-wrap';
-  if (element.nodeName !== 'INPUT')
+  if (!isInput)
     style.wordWrap = 'break-word';  // only for textarea-s
 
-  // position off-screen
+  // Position off-screen
   style.position = 'absolute';  // required to return coordinates properly
   if (!debug)
     style.visibility = 'hidden';  // not 'display: none' because we want rendering
 
-  // transfer the element's properties to the div
+  // Transfer the element's properties to the div
   properties.forEach(function (prop) {
-    style[prop] = computed[prop];
+    if (isInput && prop === 'lineHeight') {
+      // Special case for <input>s because text is rendered centered and line height may be != height
+      style.lineHeight = computed.height;
+    } else {
+      style[prop] = computed[prop];
+    }
   });
 
   if (isFirefox) {
@@ -94,8 +100,9 @@ function getCaretCoordinates(element, position, options) {
   }
 
   div.textContent = element.value.substring(0, position);
-  // the second special handling for input type="text" vs textarea: spaces need to be replaced with non-breaking spaces - http://stackoverflow.com/a/13402035/1269037
-  if (element.nodeName === 'INPUT')
+  // The second special handling for input type="text" vs textarea:
+  // spaces need to be replaced with non-breaking spaces - http://stackoverflow.com/a/13402035/1269037
+  if (isInput)
     div.textContent = div.textContent.replace(/\s/g, '\u00a0');
 
   var span = document.createElement('span');
@@ -103,13 +110,14 @@ function getCaretCoordinates(element, position, options) {
   // onto the next line, with whitespace at the end of the line before (#7).
   // The  *only* reliable way to do that is to copy the *entire* rest of the
   // textarea's content into the <span> created at the caret position.
-  // for inputs, just '.' would be enough, but why bother?
+  // For inputs, just '.' would be enough, but no need to bother.
   span.textContent = element.value.substring(position) || '.';  // || because a completely empty faux span doesn't render at all
   div.appendChild(span);
 
   var coordinates = {
     top: span.offsetTop + parseInt(computed['borderTopWidth']),
-    left: span.offsetLeft + parseInt(computed['borderLeftWidth'])
+    left: span.offsetLeft + parseInt(computed['borderLeftWidth']),
+    height: parseInt(computed['lineHeight'])
   };
 
   if (debug) {
@@ -123,7 +131,7 @@ function getCaretCoordinates(element, position, options) {
 
 if (typeof module != 'undefined' && typeof module.exports != 'undefined') {
   module.exports = getCaretCoordinates;
-} else if(isBrowser){
+} else if(isBrowser) {
   window.getCaretCoordinates = getCaretCoordinates;
 }
 

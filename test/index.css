@@ -15,3 +15,11 @@ input[type="text"], textarea {
 input[type="text"] {
   height: 3em;  /* force a height different from line-height */
 }
+
+.side-by-side {
+  display: flex;
+}
+
+.col {
+  margin-right: 2em;
+}

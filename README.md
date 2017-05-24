@@ -43,8 +43,8 @@ or the [test.html](http://rawgit.com/component/textarea-caret-position/master/te
 var getCaretCoordinates = require('textarea-caret');
 
 document.querySelector('textarea').addEventListener('input', function () {
-  var coordinates = getCaretCoordinates(this, this.selectionEnd);
-  console.log('(top, left, height) = (%s, %s, %s)', coordinates.top, coordinates.left, coordinates.height);
+  var caret = getCaretCoordinates(this, this.selectionEnd);
+  console.log('(top, left, height) = (%s, %s, %s)', caret.top, caret.left, caret.height);
 })
 ```
 
@@ -64,7 +64,10 @@ The function returns a caret coordinates object of the form `{top: , left: , hei
 
 ## Known issues
 
+* Edge cases with spaces at the end of lines in `<textarea>`s ([#24](https://github.com/component/textarea-caret-position/issues/24))
+* Edge case with selecting from right to left strings longer than the `<input>` ([#40](https://github.com/component/textarea-caret-position/issues/40))
 * Tab characters in `<textarea>`s aren't supported in IE9 ([issue #14](https://github.com/component/textarea-caret-position/issues/14))
+
 
 ## Dependencies
 
@@ -75,7 +78,7 @@ None.
 
 * Add tests.
 * Consider adding [IE-specific](http://geekswithblogs.net/svanvliet/archive/2005/03/24/textarea-cursor-position-with-javascript.aspx) [code](http://stackoverflow.com/questions/16212871/get-the-offset-position-of-the-caret-in-a-textarea-in-pixels) if it avoids the necessity of creating the mirror div and might fix [#14](https://github.com/component/textarea-caret-position/issues/14).
-* ~~Test IE8 support with `currentStyle~~.
+* ~~Test IE8 support with `currentStyle`~~.
 
 
 ## Implementation notes

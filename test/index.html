@@ -23,23 +23,35 @@
     </p>
 
     <h2><code>&lt;input type="text"></code></h2>
-    <input type="text" size="15" maxlength="240" placeholder="Enter text here">
+    <div class="side-by-side">
+      <div class="col">
+        <input type="text" size="15" maxlength="240" placeholder="Enter text here">
+      </div>
+
+      <div class="col">
+        <h3><code>&lt;input></code> manual tests</h3>
+        <ol>
+          <li>Type text longer than the input, select with the mouse from right to left to cause scrolling left, then click in the input.</li>
+        </ol>
+      </div>
+    </div>
 
     <hr/>
 
     <h2><code>&lt;textarea></code></h2>
-    <textarea rows="25" cols="40">
-      I threw a wish in the well,
-      Don't ask me, I'll never tell
-      PlaceTheCursorUnderTheFirstLettersOfThisLineAndMakeSureItDoesntTrailOnThePreviousLine
-      I looked to you as it fell,
+    <div class="side-by-side">
+      <textarea rows="25" cols="40" class="col">
+      1. Place cursor before "T" below
+      Then press arrow dow'n
+      2.PressHomeOnThisLineThenLeftArrow
+      Firefox fails, #sorrow
       And now you're in my way
 		And	tabs	are	handled	just	fine
       Except in IE9.
 
-      I'd trade my soul for a wish,
-      Pennies and dimes for a kiss
-      I wasn't looking for this,
+      3. I'd trade my soul for averylongwordthatgetswrappedaway,
+      Press End on line 3
+      All browsers are faili'n,
       But now you're in my way
 
       Your stare was holdin',
@@ -51,7 +63,16 @@
       And this is crazy,
       But here's my number,
       So call me, maybe!
-    </textarea>
+      </textarea>
+      <div class="col">
+        <h3><code>&lt;textarea></code> manual tests</h3>
+        <ol>
+          <li>Place the cursor before the "T" in "Then" then press arrow down. Fails in Chrome 58, Firefox 53.</li>
+          <li>Place the cursor before "2." and press left arrow. Fails in Firefox 53, works in Chrome.</li>
+          <li>Place the cursor at the beginning of line "3." then press End. Fails in Chrome 58, Firefox 53.</li>
+        </ol>
+      </div>
+    </div>
 
     <script>
       ['input[type="text"]', 'textarea'].forEach(function (selector) {

@@ -18,7 +18,10 @@ var properties = [
   'borderRightWidth',
   'borderBottomWidth',
   'borderLeftWidth',
-  'borderStyle',
+  'borderTopStyle',
+  'borderRightStyle',
+  'borderBottomStyle',
+  'borderLeftStyle',
 
   'paddingTop',
   'paddingRight',
@@ -95,8 +98,6 @@ function getCaretCoordinates(element, position, options) {
     // Firefox lies about the overflow property for textareas: https://bugzilla.mozilla.org/show_bug.cgi?id=984275
     if (element.scrollHeight > parseInt(computed.height))
       style.overflowY = 'scroll';
-  } else {
-    style.overflow = 'hidden';  // for Chrome to not render a scrollbar; IE keeps overflowY = 'scroll'
   }
 
   div.textContent = element.value.substring(0, position);

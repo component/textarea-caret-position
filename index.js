@@ -9,16 +9,8 @@
 var properties = [
   'direction',  // RTL support
   'boxSizing',
-  'width',  // on Chrome and IE, exclude the scrollbar, so the mirror div wraps exactly as the textarea does
   'height',
   'overflowX',
-  'overflowY',  // copy the scrollbar for IE
-
-  'borderTopWidth',
-  'borderRightWidth',
-  'borderBottomWidth',
-  'borderLeftWidth',
-  'borderStyle',
 
   'paddingTop',
   'paddingRight',
@@ -50,6 +42,25 @@ var properties = [
 
 var isBrowser = (typeof window !== 'undefined');
 var isFirefox = (isBrowser && window.mozInnerScreenX != null);
+var scrollbarWidth = 0;
+
+// modified from http://davidwalsh.name/detect-scrollbar-width
+function getScrollbarWidth() {
+  if (!scrollbarWidth) {
+    var div = document.createElement('div'),
+      style = div.style;
+    document.body.appendChild(div);
+    style.position = 'absolute';
+    style.top = '-9999px';
+    style.left = 0;
+    style.width = style.height = '100px';
+    style.overflow = 'scroll';
+    style.visibility = 'hidden';
+    scrollbarWidth = div.offsetWidth - div.clientWidth;
+    document.body.removeChild(div);
+  }
+  return scrollbarWidth;
+};
 
 function getCaretCoordinates(element, position, options) {
   if (!isBrowser) {
@@ -91,14 +102,16 @@ function getCaretCoordinates(element, position, options) {
     }
   });
 
+  style.overflowY = element.scrollHeight > parseInt(computed.height) ? 'scroll' : 'auto';
+
   if (isFirefox) {
     // Firefox lies about the overflow property for textareas: https://bugzilla.mozilla.org/show_bug.cgi?id=984275
-    if (element.scrollHeight > parseInt(computed.height))
-      style.overflowY = 'scroll';
+    // so we still use computed width
+    style.width = computed.width;
   } else {
-    style.overflow = 'hidden';  // for Chrome to not render a scrollbar; IE keeps overflowY = 'scroll'
+    // include scrollbar width - Chrome & IE renders scrollbar and gets width added
+    style.width = parseInt( computed.width, 10 ) + getScrollbarWidth() + 'px';
   }
-
   div.textContent = element.value.substring(0, position);
   // The second special handling for input type="text" vs textarea:
   // spaces need to be replaced with non-breaking spaces - http://stackoverflow.com/a/13402035/1269037

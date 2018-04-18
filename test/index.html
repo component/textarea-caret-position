@@ -37,6 +37,14 @@
     </div>
 
     <hr/>
+    <label>
+      <input type="checkbox" id="mirrorDivDisplay">Show mirror div
+    </label>
+    <hr/>
+    <label>
+      <input type="checkbox" id="mirrorDivDisplay">Show mirror div
+    </label>
+    <hr/>
 
     <h2><code>&lt;textarea></code></h2>
     <div class="side-by-side">
@@ -92,9 +100,17 @@
         });
 
         function update() {
+<<<<<<< HEAD
           // Set `debug` to true in order to see the mirror div. Default false.
           var coordinates = getCaretCoordinates(element, element.selectionEnd, { debug: true });
           console.log('(top, left, height) = (%s, %s, %s)', coordinates.top, coordinates.left, coordinates.height);
+=======
+          // change debug option to true for testing purposes only!
+          var coordinates = getCaretCoordinates(element, element.selectionEnd, {
+            debug: document.getElementById('mirrorDivDisplay').checked
+          });
+          console.log('(top, left) = (%s, %s)', coordinates.top, coordinates.left);
+>>>>>>> 85d35b7... Demo: Add debug checkbox
           rect.style.top = element.offsetTop
             - element.scrollTop
             + coordinates.top

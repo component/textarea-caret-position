@@ -1,3 +1,4 @@
+
 input[type="text"], textarea {
   /* a proportional font makes it more difficult to calculate the position */
   font-family: "Times New Roman", "Helvetica Neue", "Calibri Light", Roboto, sans-serif;
@@ -23,4 +24,27 @@ input[type="text"] {
 
 .col {
   margin-right: 2em;
+}
+input[type="text"], textarea {
+  font-family: 'Times New Roman'; /* a proportional font makes it more difficult to calculate the position */
+  font-size: 14px;
+  line-height: 16px;
+  padding: 24px 32px 16px 8px;    /* different paddings so position computations don't accidentally return a "correct" result */
+  text-transform: uppercase;      /* this drastically changes character width on proportional fonts */
+  text-indent: 20px;
+  border: 16px lightblue dotted;  /* needs to be accounted for when returning the final position */
+  border-right-width: 24px;       /* discourage naive border arithmetic */
+  background: lightyellow;
+  tab-size: 20;
+  -moz-tab-size: 20;
+}
+body {
+  width: 400px;
+  position: relative;
+}
+#input-textarea-caret-position-mirror-div {
+  background: #ddd;
+  position: fixed;
+  top: 150px;
+  left: 400px;
 }

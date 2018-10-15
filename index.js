@@ -85,7 +85,24 @@ function getCaretCoordinates(element, position, options) {
   properties.forEach(function (prop) {
     if (isInput && prop === 'lineHeight') {
       // Special case for <input>s because text is rendered centered and line height may be != height
-      style.lineHeight = computed.height;
+      if (computed.boxSizing === "border-box") {
+        var height = parseInt(computed.height);
+        var outerHeight =
+          parseInt(computed.paddingTop) +
+          parseInt(computed.paddingBottom) +
+          parseInt(computed.borderTopWidth) +
+          parseInt(computed.borderBottomWidth);
+        var targetHeight = outerHeight + parseInt(computed.lineHeight);
+        if (height > targetHeight) {
+          style.lineHeight = height - outerHeight + "px";
+        } else if (height === targetHeight) {
+          style.lineHeight = computed.lineHeight;
+        } else {
+          style.lineHeight = 0;
+        }
+      } else {
+        style.lineHeight = computed.height;
+      }
     } else {
       style[prop] = computed[prop];
     }

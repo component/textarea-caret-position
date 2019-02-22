@@ -110,6 +110,9 @@ function getCaretCoordinates(element, position, options) {
     }
   });
 
+  if (isInput) // force pre instead of pre-wrap on the input mirror
+    style.whiteSpace = 'pre';
+
   if (isFirefox) {
     // Firefox lies about the overflow property for textareas: https://bugzilla.mozilla.org/show_bug.cgi?id=984275
     if (element.scrollHeight > parseInt(computed.height))

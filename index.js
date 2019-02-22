@@ -41,6 +41,7 @@ var properties = [
   'textDecoration',  // might not make a difference, but better be safe
 
   'letterSpacing',
+  'whiteSpace',
   'wordSpacing',
 
   'tabSize',
@@ -72,9 +73,10 @@ function getCaretCoordinates(element, position, options) {
   var isInput = element.nodeName === 'INPUT';
 
   // Default textarea styles
-  style.whiteSpace = 'pre-wrap';
-  if (!isInput)
+  if (!isInput) {
+    style.whiteSpace = 'pre-wrap';
     style.wordWrap = 'break-word';  // only for textarea-s
+  }
 
   // Position off-screen
   style.position = 'absolute';  // required to return coordinates properly
@@ -107,6 +109,9 @@ function getCaretCoordinates(element, position, options) {
       style[prop] = computed[prop];
     }
   });
+
+  if (isInput) // force pre instead of pre-wrap on the input mirror
+    style.whiteSpace = 'pre';
 
   if (isFirefox) {
     // Firefox lies about the overflow property for textareas: https://bugzilla.mozilla.org/show_bug.cgi?id=984275

@@ -46,7 +46,7 @@ const properties = [
 const isBrowser = typeof window !== 'undefined'
 const isFirefox = isBrowser && window.mozInnerScreenX != null
 
-function getCaretCoordinates(element, position, options) {
+export default function getCaretCoordinates(element, position, options) {
   const debug = (options && options.debug) || false
   if (debug) {
     const el = document.querySelector('#input-textarea-caret-position-mirror-div')
@@ -132,5 +132,3 @@ function getCaretCoordinates(element, position, options) {
 
   return coordinates
 }
-
-export default getCaretCoordinates

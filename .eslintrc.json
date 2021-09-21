@@ -1,0 +1,4 @@
+{
+  "plugins": ["github"],
+  "extends": ["plugin:github/recommended", "plugin:github/browser"]
+}

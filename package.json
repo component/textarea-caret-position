@@ -8,6 +8,7 @@
     "index.js"
   ],
   "main": "index.js",
+  "module": "index.js",
   "license": "MIT",
   "keywords": [
     "textarea",

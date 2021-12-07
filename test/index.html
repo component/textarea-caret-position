@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
     <title>input and textarea caret-position testing ground</title>
     <link rel="stylesheet" type="text/css" href="index.css">
-    <script src="../index.js"></script>  <!-- this will trigger an `Uncaught ReferenceError: module is not defined`, which can be safely ignored -->
   </head>
   <body>
     <h1>Textarea/input caret position</h1>
@@ -75,8 +74,46 @@
       </div>
     </div>
 
-    <script>
-      ['input[type="text"]', 'textarea'].forEach(function (selector) {
+    <h2><code>&lt;textarea> with box-sizing: border-box</code></h2>
+    <div class="side-by-side">
+      <textarea rows="25" cols="40" class="col border-box">
+      1. Place cursor before "T" below
+      Then press arrow dow'n
+      2.PressHomeOnThisLineThenLeftArrow
+      Firefox fails, #sorrow
+      And now you're in my way
+		And	tabs	are	handled	just	fine
+      Except in IE9.
+
+      3. I'd trade my soul for averylongwordthatgetswrappedaway,
+      Press End on line 3
+      All browsers are faili'n,
+      But now you're in my way
+
+      Your stare was holdin',
+      Ripped jeans, skin was showin'
+      Hot night, wind was blowin'
+      Where do you think you're going, baby?
+
+      Hey, I just met you,
+      And this is crazy,
+      But here's my number,
+      So call me, maybe!
+      </textarea>
+      <div class="col">
+        <h3><code>&lt;textarea></code> manual tests</h3>
+        <ol>
+          <li>Place the cursor before the "T" in "Then" then press arrow down. Fails in Chrome 58, Firefox 53. (<a href="https://github.com/component/textarea-caret-position/issues/9#issuecomment-303601894">#9)</a></li>
+          <li>Place the cursor before "2." and press left arrow. Fails in Firefox 53, works in Chrome. (<a href="https://github.com/component/textarea-caret-position/issues/24#issuecomment-201913059">#24</a>)</li>
+          <li>Place the cursor at the beginning of line "3." then press End. Fails in Chrome 58, Firefox 53. (#9)</li>
+          <li>Click at the end of lines with spaces (e.g. "3." or the line before "2."). Fails in Chrome 58, Firefox 53. (#9)</li>
+        </ol>
+      </div>
+    </div>
+
+    <script type="module">
+      import getCaretCoordinates from "../index.js"
+      ['input[type="text"]', 'textarea', 'textarea.border-box'].forEach(function (selector) {
         var element = document.querySelector(selector);
         var fontSize = getComputedStyle(element).getPropertyValue('font-size');
 

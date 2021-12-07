@@ -92,6 +92,16 @@ export default function getCaretCoordinates(element, position, options) {
       } else {
         style.lineHeight = computed.height
       }
+    } else if (!isInput && prop === 'width' && computed.boxSizing === 'border-box') {
+      // With box-sizing: border-box we need to offset the size slightly inwards.  This small difference can compound
+      // greatly in long textareas with lots of wrapping, leading to very innacurate results if not accounted for.
+      // Firefox will return computed styles in floats, like `0.9px`, while chromium might return `1px` for the same element.
+      // Either way we use `parseFloat` to turn `0.9px` into `0.9` and `1px` into `1`
+      let totalBorderWidth = parseFloat(computed.borderLeftWidth) + parseFloat(computed.borderRightWidth)
+      // When a vertical scrollbar is present it shrinks the content. We need to account for this by using clientWidth
+      // instead of width in everything but Firefox. When we do that we also have to account for the border width.
+      let width = isFirefox ? parseFloat(computed[prop]) - totalBorderWidth : element.clientWidth + totalBorderWidth
+      style[prop] = `${width}px`
     } else {
       style[prop] = computed[prop]
     }

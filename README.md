@@ -20,6 +20,9 @@ offset within the `textarea` or `input` is returned.
 Check out the [JSFiddle](http://jsfiddle.net/dandv/aFPA7/)
 or the [test.html](http://rawgit.com/component/textarea-caret-position/master/test/index.html).
 
+## Install
+
+`npm i textarea-caret`
 
 ## Features
 
